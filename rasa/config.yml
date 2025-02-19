@@ -1,0 +1,41 @@
+language: ru
+
+pipeline:
+- name: WhitespaceTokenizer
+- name: RegexFeaturizer
+  case_sensitive: False
+  use_word_boundaries: True
+- name: LexicalSyntacticFeaturizer
+- name: CountVectorsFeaturizer
+  analyzer: "char_wb"
+  min_ngram: 1
+  max_ngram: 2
+
+
+- name: "LanguageModelFeaturizer"
+  model_name: "bert"
+  model_weights: "bert-base-cased"
+  cache_dir: null
+
+- name: DIETClassifier
+  epochs: 50
+  batch_strategy: "sequence"
+  similarity_type: "inner"
+  maximum_positive_similarity: 0.9
+  maximum_negative_similarity: 0
+  constrain_similarities: true
+  model_confidence: "softmax"
+  ranking_length: 3
+  entity_recognition: False
+  evaluate_every_number_of_epochs: -1
+  use_masked_language_model: true
+
+policies:
+- name: MemoizationPolicy
+  max_history: 2
+- name: RulePolicy
+- name: TEDPolicy
+  max_history: 2
+  epochs: 1
+  constrain_similarities: true
+assistant_id: 20250202-192200-silver-radial

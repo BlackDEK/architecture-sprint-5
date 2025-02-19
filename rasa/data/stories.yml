@@ -1,0 +1,20 @@
+version: "3.1"
+
+stories:
+  - story: greet and ask architecture
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_architecture
+      - action: utter_architecture
+      - intent: ask_monolithic
+      - action: utter_monolithic
+      - intent: ask_microservices
+      - action: utter_microservices
+      - intent: monolithic_or_microservices
+      - action: utter_monolithic_or_microservices
+
+  - story: goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
